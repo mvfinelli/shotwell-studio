@@ -159,7 +159,7 @@
       outline: none;
       padding: 0 0.02em 0;
       margin-bottom: -3px;
-      min-width: 3ch;
+      min-width: 3ch; width: auto;
       max-width: 100%;
       transition: border-color 0.3s ease;
       vertical-align: baseline;
@@ -400,8 +400,7 @@
 
     let selectedChallenges = new Set();
 
-    [fBrand, fBrandEcho].forEach(autoSize);
-    autoSize(fUrl);
+    document.fonts.ready.then(() => { [fBrand, fBrandEcho].forEach(autoSize); autoSize(fUrl); });
 
     function syncEcho() {
       const brand = fBrand.value.trim();
