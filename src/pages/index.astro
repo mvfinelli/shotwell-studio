@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHOTWELL BLUE6</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0A1628;
+      --text: #FFFFFF;
+      --text-mid: rgba(255,255,255,0.65);
+      --text-muted: rgba(255,255,255,0.35);
+      --accent: #6EC6E6;
+      --input-border: rgba(255,255,255,0.25);
+      --input-focus: #6EC6E6;
+      --rule: rgba(255,255,255,0.12);
+      --pill-bg: rgba(255,255,255,0.06);
+      --pill-border: rgba(255,255,255,0.18);
+      --pill-active-bg: rgba(110,198,230,0.12);
+      --pill-active-border: #6EC6E6;
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    html {
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 2.5rem;
+      background: rgba(10, 22, 40, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav-wordmark {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2.2rem; align-items: center; }
+
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-links a.nav-cta {
+      color: var(--text);
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.4rem 1.1rem;
+      border-radius: 2px;
+      transition: all 0.25s ease;
+    }
+    .nav-links a.nav-cta:hover {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 10rem 2.5rem 4rem;
+      max-width: 900px;
+    }
+
+    .hero-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 16ch;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+
+    .hero-prompt {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 2rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* STORY */
+    .story-section {
+      padding: 0 2.5rem;
+      max-width: 960px;
+    }
+
+    .story-rule {
+      width: 3rem;
+      height: 1px;
+      background: var(--rule);
+      margin-bottom: 4rem;
+    }
+
+    .story-text {
+      font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .story-text .line { display: block; margin-bottom: 0.3em; }
+    .story-text .gap { display: block; height: 1.2em; }
+    .story-text .muted { color: var(--text-mid); }
+    .story-text .dim { color: var(--text-muted); }
+    .story-text .field-wrap { display: inline; position: relative; }
+
+    .story-text input[type="text"] {
+      font-family: var(--font);
+      font-size: inherit;
+      font-weight: 700;
+      line-height: inherit;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid var(--input-border);
+      outline: none;
+      padding: 0 0.02em 0;
+      margin-bottom: -3px;
+      min-width: 3ch;
+      max-width: 100%;
+      transition: border-color 0.3s ease;
+      vertical-align: baseline;
+    }
+
+    .story-text input[type="text"]::placeholder {
+      color: var(--accent);
+      opacity: 0.4;
+      font-style: normal;
+    }
+
+    .story-text input[type="text"]:focus {
+      border-bottom-color: var(--accent);
+    }
+
+    .story-text input.url-field {
+      font-size: 0.75em;
+      letter-spacing: 0.01em;
+    }
+
+    /* PILL SELECTOR */
+    .pill-group {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      vertical-align: baseline;
+      margin: 0.15em 0;
+    }
+
+    .pill {
+      font-size: 0.48em;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text-mid);
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      padding: 0.4em 0.95em;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .pill:hover { border-color: var(--text-mid); color: var(--text); }
+    .pill.active {
+      background: var(--pill-active-bg);
+      border-color: var(--pill-active-border);
+      color: var(--accent);
+    }
+
+    /* REVEAL */
+    .reveal {
+      padding: 0 2.5rem 6rem;
+      max-width: 960px;
+    }
+
+    .reveal-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--rule);
+      margin-bottom: 3.5rem;
+    }
+
+    .reveal-text {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 600;
+      line-height: 1.55;
+      color: var(--text);
+      max-width: 30ch;
+      margin-bottom: 2.5rem;
+    }
+    .reveal-text .echo { color: var(--accent); }
+
+    .reveal-cta {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 1rem 2.6rem;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .reveal-cta:hover { background: #FFFFFF; }
+
+    .reveal-note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      font-weight: 400;
+      max-width: 50ch;
+      line-height: 1.6;
+    }
+
+    /* WORK / FOOTER */
+    .work-strip { border-top: 1px solid var(--rule); padding: 5rem 2.5rem; }
+    .work-strip-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2.5rem; display: block; }
+    .work-strip-clients { font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--text-muted); line-height: 2; max-width: 800px; font-weight: 500; }
+
+    .footer { border-top: 1px solid var(--rule); padding: 3rem 2.5rem 2rem; display: flex; justify-content: space-between; align-items: flex-end; }
+    .footer-left { display: flex; flex-direction: column; gap: 0.35rem; }
+    .footer-mark { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; }
+    .footer-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+    .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; }
+    .footer-right a { font-size: 0.72rem; color: var(--text-muted); text-decoration: none; font-weight: 400; transition: color 0.2s ease; }
+    .footer-right a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.6rem; color: var(--text-muted); padding: 1.5rem 2.5rem 2rem; font-weight: 400; }
+
+    @media (max-width: 640px) {
+      .nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.4rem; }
+      .hero { padding: 8rem 1.5rem 3rem; }
+      .story-section { padding: 0 1.5rem; }
+      .reveal { padding: 0 1.5rem 5rem; }
+      .work-strip { padding: 3.5rem 1.5rem; }
+      .footer { padding: 2.5rem 1.5rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .footer-right { align-items: flex-start; }
+      .footer-copy { padding: 1.5rem 1.5rem 2rem; }
+      .story-text input[type="text"] { display: block; width: 100%; margin: 0.15em 0 0.25em; }
+      .pill-group { display: flex; margin: 0.3em 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-wordmark">Shotwell</a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="mailto:matt@shotwellstudio.com" class="nav-cta">Get in Touch</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <span class="hero-label">Brand Strategy & Build</span>
+    <h1>Your product deserves a brand that <em>sells.</em></h1>
+    <p class="hero-prompt">Fill out the brand lib below to see if we're a good fit.</p>
+  </section>
+
+  <section class="story-section">
+    <div class="story-rule"></div>
+    <div class="story-text">
+      <span class="line">
+        <span class="field-wrap"><input type="text" id="f-brand" placeholder="Your brand" size="12" /></span>
+        sells an amazing product.</span>
+      <span class="line muted">Maybe just the one, or maybe a whole lineup.</span>
+      <span class="line">Either way — you believe in it.</span>
+    </div>
+  </section>
+
+  <section class="story-section" style="padding-top: 2rem;">
+    <div class="story-text">
+      <span class="gap"></span>
+      <span class="line">But something online isn't working.</span>
+      <span class="line muted">Your site looks fine — but "fine" isn't selling.</span>
+      <span class="gap"></span>
+      <span class="line">You've thought about fixing it — maybe you've even tried. But nothing's clicked yet.</span>
+      <span class="line dim" style="display: block; margin-top: 0.5em; margin-bottom: 0.2em;">
+        <span style="font-size: 0.48em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">Sound familiar?</span>
+      </span>
+      <span class="line" style="margin-top: 0.3em;">
+        <span class="pill-group" id="challenges">
+          <span class="pill" data-val="convert">Site doesn't convert</span>
+          <span class="pill" data-val="scattered">Brand feels scattered</span>
+          <span class="pill" data-val="reach">Not reaching the right people</span>
+          <span class="pill" data-val="data">Don't understand the data</span>
+          <span class="pill" data-val="email">Marketing emails aren't working</span>
+          <span class="pill" data-val="overwhelming">I'm just overwhelmed</span>
+        </span>
+      </span>
+    </div>
+  </section>
+
+  <section class="story-section" style="padding-top: 2rem;">
+    <div class="story-text">
+      <span class="gap"></span>
+      <span class="line muted">Your site at
+        <span class="field-wrap"><input type="text" id="f-url" placeholder="yoursite.com" size="16" class="url-field" /></span>
+        is live — and you know it could be doing more.</span>
+    </div>
+  </section>
+
+  <section class="story-section" style="padding-top: 2rem; padding-bottom: 3rem;">
+    <div class="story-text">
+      <span class="gap"></span>
+      <span class="line">You know
+        <span class="field-wrap"><input type="text" id="f-brand-echo" placeholder="your brand" size="10" class="echo-field" readonly tabindex="-1" /></span>
+        deserves better.</span>
+      <span class="line">You just need the right partner.</span>
+    </div>
+  </section>
+
+  <section class="reveal" id="reveal">
+    <div class="reveal-rule"></div>
+    <p class="reveal-text">
+      I'm Matt. Twenty years working with brands like G/FORE, Skout's Honor, and Chomps Snack Sticks. From identity to packaging to the shelf. Now I work directly with founders whose product deserves more than their online presence is delivering. I do the strategy and I build the thing. One partner, no handoffs.<br/><br/>
+      If <span class="echo" id="echo-final">your brand</span> is the real deal, I might be the right fit.
+    </p>
+    <a href="mailto:matt@shotwellstudio.com?subject=Let's%20talk%20about%20my%20brand" class="reveal-cta">Let's Talk</a>
+    <p class="reveal-note">Now focused entirely on founder-led product brands that are ready to sell more.</p>
+  </section>
+
+  <section class="work-strip" id="work">
+    <span class="work-strip-label">Brands I've worked with, built, and/or helped shape</span>
+    <p class="work-strip-clients">Shamma Sandals · Fama Tomatoes · Byrd Hair · G/FORE · Chomps · Fog City Farms · Skout's Honor · Organicade · Cannadips · HBO · FX Networks · 20th Century Fox · Adidas · Billabong</p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-mark">SHOTWELL</span>
+      <span class="footer-sub">Brand strategy & build for product brands</span>
+      <span class="footer-sub">Santa Cruz, CA</span>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:matt@shotwellstudio.com">matt@shotwellstudio.com</a>
+      <a href="https://www.instagram.com/sleep.attack" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </footer>
+  <div class="footer-copy">&copy; 2026 Shotwell Studio</div>
+
+  <script>
+    function autoSize(input) {
+      const val = input.value || input.getAttribute('placeholder') || '';
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const style = window.getComputedStyle(input);
+      ctx.font = style.fontSize + ' ' + style.fontFamily;
+      input.style.width = Math.max(ctx.measureText(val).width + 10, 48) + 'px';
+    }
+
+    const fBrand = document.getElementById('f-brand');
+    const fUrl = document.getElementById('f-url');
+    const fBrandEcho = document.getElementById('f-brand-echo');
+    const echoFinal = document.getElementById('echo-final');
+
+    let selectedChallenges = new Set();
+
+    [fBrand, fBrandEcho].forEach(autoSize);
+    autoSize(fUrl);
+
+    function syncEcho() {
+      const brand = fBrand.value.trim();
+      fBrandEcho.value = brand;
+      fBrandEcho.setAttribute('placeholder', brand || 'your brand');
+      autoSize(fBrandEcho);
+      echoFinal.textContent = brand || 'your brand';
+    }
+
+    ['input', 'keyup', 'change', 'blur', 'paste'].forEach(evt => {
+      fBrand.addEventListener(evt, () => { autoSize(fBrand); syncEcho(); });
+      fUrl.addEventListener(evt, () => { autoSize(fUrl); });
+    });
+
+    document.querySelectorAll('#challenges .pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        pill.classList.toggle('active');
+        const val = pill.getAttribute('data-val');
+        if (selectedChallenges.has(val)) selectedChallenges.delete(val);
+        else selectedChallenges.add(val);
+      });
+    });
+  </script>
+
+</body>
+</html>
